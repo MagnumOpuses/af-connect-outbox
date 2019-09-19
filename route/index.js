@@ -11,6 +11,7 @@ router.use((req, res, next) => {
 
 // define the home page route
 router.get('/', (req, res) => res.send(`AF-connnect-outbox is alive`));
+
 // define the about route
 router.post('/sessionToken', sessionToken);
 

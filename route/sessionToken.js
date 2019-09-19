@@ -1,5 +1,12 @@
+const redis = require('../lib/redis');
+
 module.exports = (req, res) => {
-    const body = req.body;
-    console.log(`from inside sessionToken module ${body}`)
-    res.send(body);
+    const token = req.body.token;
+    console.log(`from inside sessionToken module ${token}`);
+
+    redis.setKey(token, "value1").then(
+        r => console.log(r),
+        err => console.log(err)
+    )
+    // redis.getValue(token);
 }

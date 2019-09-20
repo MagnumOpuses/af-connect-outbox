@@ -3,9 +3,9 @@
 [logo]: https://github.com/MagnumOpuses/project-meta/blob/master/img/jobtechdev_black.png "JobTech dev logo"
 [A JobTech Project](https://www.jobtechdev.se)
 
-# Gravity Demo Site
+# AF-Connect Outbox
 
-Gravity Demo site is an example website that demonstrates the use-case of pre-filling forms with CV data from [Gravity Portability](https://github.com/MagnumOpuses/gravity-portability).
+AF-Connect Outbox is a internerl cache service used by AF-Connect and AF-Portability to cache the envelop CV data [AF-Connect Outbox](https://github.com/MagnumOpuses/af-connect-outbox/).
 
 ## Versions, current dev state and future
 
@@ -17,13 +17,18 @@ No getting started guidelines yet.
 
 ### Prerequisites
 
-No prerequisites guidelines yet.
+Install Redis in your local machine and run this command to run the Redis Server
+```bash
+redis-server
+```
 
 ### Installation
 
 ```bash
-git clone https://github.com/MagnumOpuses/gravity-demo-site.git
-cd gravity-demo-site
+git clone https://github.com/MagnumOpuses/af-connect-outbox.git
+cd af-connect-outbox
+npm install
+npm start
 ```
 
 ## Test

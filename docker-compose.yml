@@ -1,0 +1,17 @@
+version: '3'
+services:
+  outbox:
+    build: .
+    ports:
+    - "8100:8100"
+    networks:
+    - redis
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    networks:
+    - redis
+networks:
+  redis:
+    driver: bridge

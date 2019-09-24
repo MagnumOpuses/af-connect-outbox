@@ -2,18 +2,9 @@ version: '3'
 services:
   outbox:
     build: .
-    link: 
-      - redis
+    links: 
+      - redis_db
     ports:
       - "8100:8100"
-    networks:
-      - redis
-  redis:
+  redis_db:
     image: "redis:alpine"
-    ports:
-      - target: 6379
-    networks:
-      - redis
-networks:
-  redis:
-    driver: bridge

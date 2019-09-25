@@ -28,16 +28,31 @@ redis-server
 git clone https://github.com/MagnumOpuses/af-connect-outbox.git
 cd af-connect-outbox
 npm install
-npm start
 ```
 
 ## Test
 
 No tests yet.
 
-## Deployment
+## Deployment variants
 
-No deployment guidelines yet.
+### Deploy with docker
+
+```
+docker-compose up
+```
+
+### Deploy with npm
+
+```
+npm start
+```
+
+### Deploy in development mode
+
+```
+npm run dev
+```
 
 ## Built with
 

@@ -36,6 +36,8 @@ No tests yet.
 
 ## Deployment variants
 
+The AF Connect Outbox service is deployed to [http://localhost:8100](http://localhost:8100) by default.
+
 ### Deploy with docker
 
 ```

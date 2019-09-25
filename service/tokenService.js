@@ -15,7 +15,7 @@ async function registerValue(req, res) {
     }
 
     try {
-        let reply = await redisClient.setValue(token);
+        let reply = await redisClient.setValue(token, value);
         console.log(reply);
         return res.status(200).send({"status": 200, "message": "Success"});
     } catch (err) {
@@ -41,7 +41,6 @@ async function getValue(req, res) {
         console.log(err);
         return res.status(500).send({"status": 500, "message": "Internal server error"});
     }
-
 }
 
 module.exports = {

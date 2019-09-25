@@ -51,6 +51,20 @@ docker-compose build
 docker-compose up
 ```
 
+## API Specification
+1. `\registerToken` POST API for registering the session token with some value.
+The body is JSON Object like the following
+```javascript
+{
+    "token": String, // required
+    "value": String  // Optional
+}
+```
+
+2. `\envelop?sessionToken={sessionToken}` GET API for getting the value that is stored against the token. If no value found api will return null.
+
+
+
 ## Test
 
 No tests yet.

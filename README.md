@@ -28,16 +28,33 @@ redis-server
 git clone https://github.com/MagnumOpuses/af-connect-outbox.git
 cd af-connect-outbox
 npm install
-npm start
 ```
 
 ## Test
 
 No tests yet.
 
-## Deployment
+## Deployment variants
 
-No deployment guidelines yet.
+The AF Connect Outbox service is deployed to [http://localhost:8100](http://localhost:8100) by default.
+
+### Deploy with docker
+
+```
+docker-compose up
+```
+
+### Deploy with npm
+
+```
+npm start
+```
+
+### Deploy in development mode
+
+```
+npm run dev
+```
 
 ## Built with
 

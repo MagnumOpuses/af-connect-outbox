@@ -10,7 +10,7 @@ router.use((req, res, next) => {
 });
 
 // define the home page route
-router.get('/', (req, res) => res.send(`AF-connnect-outbox is alive`));
+router.get('/', (req, res) => res.send(`AF-connect-outbox is alive`));
 
 // define the register session token route
 router.post('/registerToken', tokenService.registerValue);

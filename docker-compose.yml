@@ -1,0 +1,10 @@
+version: '3'
+services:
+  outbox:
+    build: .
+    links: 
+      - redis_db
+    ports:
+      - "8100:8100"
+  redis_db:
+    image: "redis:alpine"

@@ -52,7 +52,7 @@ docker-compose up
 ```
 
 ## API Specification
-1. `\registerToken` POST API for registering the session token with some value.
+1. `/registerToken` POST API for registering the session token with some value.
 The body is JSON Object like the following
 ```javascript
 {
@@ -61,7 +61,7 @@ The body is JSON Object like the following
 }
 ```
 
-2. `\envelop?sessionToken={sessionToken}` GET API for getting the value that is stored against the token. If no value found api will return null.
+2. `/envelop?sessionToken={sessionToken}` GET API for getting the value that is stored against the token. If no value found api will return null.
 
 
 

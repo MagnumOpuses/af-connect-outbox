@@ -17,48 +17,50 @@ No getting started guidelines yet.
 
 ### Prerequisites
 
-Install Redis in your local machine and run this command to run the Redis Server
-```bash
-redis-server
-```
+Install docker and docker-compose in your machine
 
 ### Installation
 
 ```bash
 git clone https://github.com/MagnumOpuses/af-connect-outbox.git
 cd af-connect-outbox
-npm install
+```
+
+Create a file called `.env` in the project's root directory
+And Paste the following line:
+```bash
+PORT=8100
+```
+Then run the following command
+```bash
+docker-compose up
+```
+Then open `localhost:8100` in the browser.
+For successful installation you will the following line
+```bash
+AF-connect-outbox is alive
+```
+
+
+## Development
+After making changes and see it's effect, do the following
+
+Quit the running project by typing `ctrl + c` and then
+```bash
+docker-compose build
+docker-compose up
 ```
 
 ## Test
 
 No tests yet.
 
-## Deployment variants
-
-The AF Connect Outbox service is deployed to [http://localhost:8100](http://localhost:8100) by default.
-
-### Deploy with docker
-
-```
-docker-compose up
-```
-
-### Deploy with npm
-
-```
-npm start
-```
-
-### Deploy in development mode
-
-```
-npm run dev
-```
-
 ## Built with
 
-No technologies yet.
+  - [Node.js v10.15.3](https://nodejs.org/) (Runtime environment)
+  - [NPM v6.4.1](https://www.npmjs.com/) (Node package manager)
+  - [Express v4.17.1](https://expressjs.com/) (Web application framework)
+  - [Redis](https://redis.io/) (Open Source In-memoriy data store)
 
 ## Contributing
 

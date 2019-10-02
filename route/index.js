@@ -13,7 +13,10 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => res.send(`AF-connect-outbox is alive`));
 
 // define the register session token route
-router.post('/registerToken', tokenService.registerValue);
+router.post('/store', tokenService.storeValue);
+
+// define the storing value with session token route
+
 
 // define the get the envelop using the sessiontoken
 router.get('/envelop?:sessionToken', tokenService.getValue)

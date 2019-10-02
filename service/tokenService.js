@@ -35,8 +35,9 @@ async function getValue(req, res) {
     try {
         let value = await redisClient.getValue(token);
         let rep = await redisClient.deleteValue(token);
-        console.log(value, rep);
-        return res.status(200).send({"status": 200, "value": value});
+        console.log(value, rep, typeof value);
+        
+        return res.status(200).send({"status": 200, "value": (value !== null) ? value : ""});
     } catch (err) {
         console.log(err);
         return res.status(500).send({"status": 500, "message": "Internal server error"});

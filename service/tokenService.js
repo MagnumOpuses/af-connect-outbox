@@ -1,6 +1,6 @@
 const redisClient = require('../lib/redis');
 
-async function registerValue(req, res) {
+async function storeValue(req, res) {
     const token = req.body.token;
     let value = req.body.value;
     console.log(`value: ${value}`);
@@ -33,11 +33,22 @@ async function getValue(req, res) {
     }
 
     try {
+        let e = await redisClient.checkKeyExist(token);
+        console.log(e);
+        if (e === 0) {
+            return res.status(404).send({"status": 404, "message": "Invalid token"});
+        }
+
         let value = await redisClient.getValue(token);
+        console.log(`value: ${value}`);
+        if (!value) {
+            return res.status(200).send({"status": 200, "value": ""});
+        }
+
         let rep = await redisClient.deleteValue(token);
         console.log(value, rep, typeof value);
         
-        return res.status(200).send({"status": 200, "value": (value !== null) ? value : ""});
+        return res.status(200).send({"status": 200, "value": value});
     } catch (err) {
         console.log(err);
         return res.status(500).send({"status": 500, "message": "Internal server error"});
@@ -45,6 +56,6 @@ async function getValue(req, res) {
 }
 
 module.exports = {
-    registerValue,
+    storeValue,
     getValue
 };

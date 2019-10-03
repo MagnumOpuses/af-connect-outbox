@@ -13,7 +13,7 @@ RUN npm install
 # RUN npm ci --only=production
 
 # EXPOSE and BIND port
-EXPOSE 8100:8100
+EXPOSE 8100
 
 # Bundle app source
 COPY . .

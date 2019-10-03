@@ -12,6 +12,9 @@ RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
+# EXPOSE and BIND port
+EXPOSE 8100:8100
+
 # Bundle app source
 COPY . .
 

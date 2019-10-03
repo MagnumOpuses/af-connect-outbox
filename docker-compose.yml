@@ -3,8 +3,8 @@ services:
   outbox:
     build: .
     links: 
-      - redis_db
+      - af-connect-redis
     ports:
       - "8100:8100"
-  redis_db:
+  af-connect-redis:
     image: "redis:alpine"

@@ -1,0 +1,10 @@
+version: '3'
+services:
+  outbox:
+    build: .
+    links: 
+      - af-connect-redis
+    ports:
+      - "8100:8100"
+  af-connect-redis:
+    image: "redis:alpine"

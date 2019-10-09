@@ -3,9 +3,9 @@
 [logo]: https://github.com/MagnumOpuses/project-meta/blob/master/img/jobtechdev_black.png "JobTech dev logo"
 [A JobTech Project](https://www.jobtechdev.se)
 
-# Gravity Demo Site
+# AF-Connect Outbox
 
-Gravity Demo site is an example website that demonstrates the use-case of pre-filling forms with CV data from [Gravity Portability](https://github.com/MagnumOpuses/gravity-portability).
+AF-Connect Outbox is a internerl cache service used by AF-Connect and AF-Portability to cache the envelop CV data [AF-Connect Outbox](https://github.com/MagnumOpuses/af-connect-outbox/).
 
 ## Versions, current dev state and future
 
@@ -17,26 +17,64 @@ No getting started guidelines yet.
 
 ### Prerequisites
 
-No prerequisites guidelines yet.
+Install docker and docker-compose in your machine
 
 ### Installation
 
 ```bash
-git clone https://github.com/MagnumOpuses/gravity-demo-site.git
-cd gravity-demo-site
+git clone https://github.com/MagnumOpuses/af-connect-outbox.git
+cd af-connect-outbox
 ```
+
+Create a file called `.env` in the project's root directory
+And Paste the following line:
+```bash
+PORT=8100
+```
+Then run the following command
+```bash
+docker-compose up
+```
+Then open `localhost:8100` in the browser.
+For successful installation you will the following line
+```bash
+AF-connect-outbox is alive
+```
+
+
+## Development
+After making changes and see it's effect, do the following
+
+Quit the running project by typing `ctrl + c` and then
+```bash
+docker-compose build
+docker-compose up
+```
+
+## API Specification
+1. `/registerToken` POST API for registering the session token with some value.
+The body is JSON Object like the following
+```javascript
+{
+    "token": String, // required
+    "value": String  // Optional
+}
+```
+
+2. `/envelop?sessionToken={sessionToken}` GET API for getting the value that is stored against the token. If no value found api will return null.
+
+
 
 ## Test
 
 No tests yet.
 
-## Deployment
-
-No deployment guidelines yet.
-
 ## Built with
 
-No technologies yet.
+  - [Node.js v10.15.3](https://nodejs.org/) (Runtime environment)
+  - [NPM v6.4.1](https://www.npmjs.com/) (Node package manager)
+  - [Express v4.17.1](https://expressjs.com/) (Web application framework)
+  - [Redis](https://redis.io/) (Open Source In-memoriy data store)
 
 ## Contributing
 

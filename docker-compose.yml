@@ -6,5 +6,8 @@ services:
       - af-connect-redis
     ports:
       - "8100:8100"
+    depends_on:
+      - af-connect-redis
   af-connect-redis:
+    container_name: "redis-db"
     image: "redis:alpine"

@@ -3,14 +3,18 @@ const { createLogger, format, transports } = require('winston');
 const fs = require('fs');
 const path = require('path');
 
+/** 
 const env = process.env.NODE_ENV || 'development';
 const logDir = `../../../logs`;
 
 if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
 }
+*/
 
 // const filename = path.join(logDir, 'main.log');
+
+// TODO: Nedd to add logfile 
 
 const logger = createLogger({
     level: 'debug',
@@ -22,8 +26,7 @@ const logger = createLogger({
         format.json()
     ),
     transports: [
-        new transports.Console(),
-        new transports.File({filename: 'main.log'})
+        new transports.Console()
     ]
 });
 

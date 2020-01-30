@@ -1,6 +1,6 @@
 {
   "name": "af-connect-outbox",
-  "version": "1.0.0",
+  "version": "1.0.1-beta",
   "description": "A temporary storage or cache for cv-data envelop against session token",
   "main": "app.js",
   "scripts": {

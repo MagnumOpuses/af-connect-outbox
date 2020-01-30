@@ -8,7 +8,7 @@ Gravity Demo site is an example website that demonstrates the use-case of pre-fi
 
 ##### Versions, current dev state and future
 
-No versions yet.
+1.0.1-beta
 
 ##### Getting started
 

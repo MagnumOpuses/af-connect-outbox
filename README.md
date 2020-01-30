@@ -9,7 +9,7 @@ AF-Connect Outbox is a internerl cache service used by AF-Connect and AF-Portabi
 
 ## Versions, current dev state and future
 
-No versions yet.
+1.0.1-beta
 
 ## Getting started
 

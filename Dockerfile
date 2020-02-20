@@ -14,6 +14,7 @@ RUN npm install
 
 # EXPOSE and BIND port
 EXPOSE 8100
+EXPOSE 9803
 
 WORKDIR /app
 

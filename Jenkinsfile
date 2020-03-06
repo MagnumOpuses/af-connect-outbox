@@ -66,8 +66,7 @@ pipeline {
                         openshift.withProject("${cicdProjectNamespace}") {
                             sh """
                             oc new-app ${applicationName} \
-                            -e HOST=localhost \
-                            -e PORT=3000
+                            -e REDIS_HOST=redis-db
                             """
                         }
                     }

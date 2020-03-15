@@ -4,17 +4,15 @@ const bodyParser = require("body-parser");
 const config = require("./lib/config");
 
 const routes = require("./route");
-const health = require("./lib/health");
-
-health.startServer({
+const Health = require("check-connectivity");
+const health = new Health({
   host: config.host,
   port: config.healthPort,
-  health: {
-    compatibleWith: {
-      "af-portability": "^1.0.0-beta"
-    }
+  debug: true,
+  compatibleWith: {
+    "af-portability": "^1.0.0-beta"
   }
-});
+}).listen();
 
 const app = express();
 

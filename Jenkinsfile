@@ -1,8 +1,6 @@
-def devProjectNamespace = "af-connect-dev"
 def cicdProjectNamespace = "af-connect-cicd"
-def applicationName = "af-connect-outbox"
-def gitRepo = "https://github.com/MagnumOpuses/af-connect-outbox.git"
-def gitBranch = "jenkins/test-field"
+def artifactName = "af-connect-outbox"
+def bcFile = "./infrastructure/openshift/config/build-config.yml"
 
 pipeline {
     agent any
@@ -23,8 +21,8 @@ pipeline {
             when {
                 expression {
                     openshift.withCluster() {
-                    openshift.withProject("${cicdProjectNamespace}") {
-                        return !openshift.selector("bc", "${applicationName}").exists();
+                        openshift.withProject("${cicdProjectNamespace}") {
+                            return !openshift.selector("bc", "${artifactName}").exists();
                         }
                     }
                 }
@@ -33,7 +31,7 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject("${cicdProjectNamespace}") {
-                            openshift.newBuild("--name=${applicationName}", "--strategy=docker", "${gitRepo}#${gitBranch}")
+                            sh "oc create -f ${bcFile}"
                         }
                     }
                 }
@@ -44,34 +42,12 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject("${cicdProjectNamespace}") {
-                            openshift.selector("bc", "${applicationName}").startBuild("--wait=true")
+                            sh "oc start-build ${artifactName} --wait"
                         }
                     }
                 }
             }
         }
-        stage('Deploy Image') {
-            when {
-                expression {
-                    openshift.withCluster() {
-                    openshift.withProject("${cicdProjectNamespace}") {
-                            return !openshift.selector('dc', "${applicationName}").exists()
-                        }
-                    }
-                }
-            }
-            steps {
-                script {
-                    openshift.withCluster() {
-                        openshift.withProject("${cicdProjectNamespace}") {
-                            sh """
-                            oc new-app ${applicationName} \
-                            -e REDIS_HOST=redis-db
-                            """
-                        }
-                    }
-                }
-            }
-        }
+        
     }
 }

@@ -1,7 +1,7 @@
 kind: Template
 apiVersion: v1
 metadata:
-    name: '${APPLICATION_NAME}'
+    name: af-connect-outbox
     annotations:
         openshift.io/display-name: 'AF-Connect Outbox with Redis'
         description: "An Node.js application with a Redis database."
@@ -19,19 +19,15 @@ objects:
             name: '${APPLICATION_NAME}'
             annotations:
                 description: 'Exposes and load balances the application pods'
-                service.openshift.io/dependencies: 
-                    - 
-                        name: '${REDIS_HOST}'
-                        kind: Service
         spec:
             ports:
                 -
-                    name: 'web'
-                    port: '${APPLICATION_PORT}'
+                    name: http
+                    port: 8100
                     protocol: TCP
-                    targetPort: '${APPLICATION_PORT}'
+                    targetPort: 8100
             selector:
-                name: '${APPLICATION_NAME}'
+                deploymentconfig: '${APPLICATION_NAME}'
     -
         kind: DeploymentConfig
         apiVersion: v1
@@ -58,7 +54,7 @@ objects:
                     type: ConfigChange
             replicas: 1
             selector:
-                name: '${NAME}'
+                name: '${APPLICATION_NAME}'
             template:
                 metadata:
                     name: '${APPLICATION_NAME}'
@@ -71,7 +67,7 @@ objects:
                             image: >-
                                 image-registry.openshift-image-registry.svc:5000/'${NAMESPACE}'/'${APPLICATION_NAME}'
                             ports:
-                                - containerPort: 3000
+                                - containerPort: 8100
                                   protocol: TCP
                             env: 
                                 - name: REDIS_HOST
@@ -88,7 +84,7 @@ parameters:
         displayName: Name
         description: 'The name assigned to all of the frontend objects defined in this template.'
         required: true
-        value: nodejs-mongodb-example
+        value: af-connect-outbox
     -
         name: APPLICATION_PORT
         displayName: Port

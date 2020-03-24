@@ -26,7 +26,7 @@
   "homepage": "https://github.com/MagnumOpuses/af-connect-outbox#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "check-connectivity": "git+https://git@github.com/MagnumOpuses/check-connectivity.git",
+    "check-connectivity": "git+https://git@github.com/MagnumOpuses/check-connectivity.git#8a073c1",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "redis": "^2.8.0",

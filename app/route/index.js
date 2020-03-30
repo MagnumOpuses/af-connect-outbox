@@ -6,7 +6,6 @@ const tokenService = require('../service/tokenService');
 
 // middleware that is specific to this router
 router.use((req, res, next) => {
-  console.log('Time: ', Date.now());
   logformat(req, res);
   next();
 });

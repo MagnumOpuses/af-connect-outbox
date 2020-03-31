@@ -15,7 +15,6 @@ async function storeValue(req, res) {
 
     try {
         let reply = await redisClient.setValue(token, value);
-        console.log(reply);
         return res.status(200).send({"status": 200, "message": "Success"});
     } catch (err) {
         console.log(err);

@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const config = require("./lib/config");
 
 const routes = require("./route");
+const logger = require("./lib/logger");
+
 const Health = require("check-connectivity");
 const health = new Health({
   host: config.host,
@@ -18,6 +20,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(logger);
 app.use(routes);
 
 app.listen(config.port, () =>

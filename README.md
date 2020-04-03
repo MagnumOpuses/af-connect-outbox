@@ -1,6 +1,7 @@
 ![alt text][logo]
 
 [logo]: https://github.com/MagnumOpuses/project-meta/blob/master/img/jobtechdev_black.png "JobTech dev logo"
+
 [A JobTech Project](https://www.jobtechdev.se)
 
 # AF-Connect Outbox
@@ -9,7 +10,7 @@ AF-Connect Outbox is a internerl cache service used by AF-Connect and AF-Portabi
 
 ## Versions, current dev state and future
 
-1.0.1-beta
+1.1.0-beta
 
 ## Getting started
 
@@ -28,32 +29,40 @@ cd af-connect-outbox
 
 Create a file called `.env` in the project's root directory
 And Paste the following line:
+
 ```bash
 PORT=8100
 ```
+
 Then run the following command
+
 ```bash
 docker-compose up
 ```
+
 Then open `localhost:8100` in the browser.
 For successful installation you will the following line
+
 ```bash
 AF-connect-outbox is alive
 ```
 
-
 ## Development
+
 After making changes and see it's effect, do the following
 
 Quit the running project by typing `ctrl + c` and then
+
 ```bash
 docker-compose build
 docker-compose up
 ```
 
 ## API Specification
+
 1. `/registerToken` POST API for registering the session token with some value.
-The body is JSON Object like the following
+   The body is JSON Object like the following
+
 ```javascript
 {
     "token": String, // required
@@ -63,18 +72,16 @@ The body is JSON Object like the following
 
 2. `/envelop?sessionToken={sessionToken}` GET API for getting the value that is stored against the token. If no value found api will return null.
 
-
-
 ## Test
 
 No tests yet.
 
 ## Built with
 
-  - [Node.js v10.15.3](https://nodejs.org/) (Runtime environment)
-  - [NPM v6.4.1](https://www.npmjs.com/) (Node package manager)
-  - [Express v4.17.1](https://expressjs.com/) (Web application framework)
-  - [Redis](https://redis.io/) (Open Source In-memoriy data store)
+- [Node.js v10.15.3](https://nodejs.org/) (Runtime environment)
+- [NPM v6.4.1](https://www.npmjs.com/) (Node package manager)
+- [Express v4.17.1](https://expressjs.com/) (Web application framework)
+- [Redis](https://redis.io/) (Open Source In-memoriy data store)
 
 ## Contributing
 

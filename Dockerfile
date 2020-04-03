@@ -2,6 +2,7 @@ FROM node:10-alpine
 
 # Create server directory
 RUN apk update
+RUN apk add git
 
 # Install server dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -14,7 +15,8 @@ RUN npm install
 
 # EXPOSE and BIND port
 EXPOSE 8100
+EXPOSE 9802
 
-WORKDIR /app
+#WORKDIR /app
 
-CMD [ "node", "./app.js" ]
+CMD [ "npm", "start" ]

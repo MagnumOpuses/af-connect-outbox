@@ -6,8 +6,8 @@ const config = require("./lib/config");
 const routes = require("./route");
 const logger = require("./lib/logger");
 
-const Health = require("check-connectivity");
-const health = new Health({
+const CC = require("check-connectivity");
+const cc = new CC({
   host: config.host,
   port: config.healthPort,
   debug: true,

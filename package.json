@@ -7,7 +7,7 @@
     "start": "node app/app.js",
     "dev": "nodemon",
     "docker": "docker-compose stop && docker-compose build && docker-compose up",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "check-connectivity": "git+https://git@github.com/MagnumOpuses/check-connectivity.git#8a073c1",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
+    "express-validator": "^6.4.0",
     "express-winston": "^4.0.3",
     "redis": "^2.8.0",
     "semver": "^7.1.3",

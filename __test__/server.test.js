@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-test("Test Outbox main server", async done => {
+test("Test Outbox main server", async () => {
   const AfConnectOutbox = require("../app/app");
   const afConnectOutbox = new AfConnectOutbox();
   await afConnectOutbox.init();
@@ -10,10 +10,9 @@ test("Test Outbox main server", async done => {
   expect(result.status).toBe(200);
 
   await afConnectOutbox.stop();
-  return done();
 });
 
-test("Test Outbox health server", async done => {
+test("Test Outbox health server", async () => {
   const AfConnectOutbox = require("../app/app");
   const afConnectOutbox = new AfConnectOutbox();
   await afConnectOutbox.init();
@@ -25,10 +24,9 @@ test("Test Outbox health server", async done => {
   expect(body.status).toBe("UP");
 
   await afConnectOutbox.stop();
-  return done();
 });
 
-test("Test Outbox redis integration", async done => {
+test("Test Outbox redis integration", async () => {
   const AfConnectOutbox = require("../app/app");
   const afConnectOutbox = new AfConnectOutbox();
   await afConnectOutbox.init();
@@ -55,5 +53,4 @@ test("Test Outbox redis integration", async done => {
   }
 
   await afConnectOutbox.stop();
-  return done();
 });

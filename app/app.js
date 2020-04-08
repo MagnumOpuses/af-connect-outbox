@@ -16,90 +16,55 @@ module.exports = function() {
   this.cc = undefined;
 
   this.init = async function() {
-    return new Promise(resolve => {
-      this.cc = new CC({
-        host: config.host,
-        port: config.healthPort,
-        debug: true,
-        compatibleWith: {
-          "af-portability": "^1.0.0-beta"
-        }
-      });
-      return resolve(this);
-    }).then(() => {
-      return new Promise((resolve, reject) => {
-        this.app = express();
-        this.app.use(bodyParser.urlencoded({ extended: false }));
-        this.app.use(bodyParser.json());
-        this.app.use(logger);
-        this.app.use(routes);
-
-        this.server = http.createServer(this.app);
-        return resolve(this);
-      });
+    this.cc = new CC({
+      host: config.host,
+      port: config.healthPort,
+      debug: true,
+      compatibleWith: {
+        "af-portability": "^1.0.0-beta"
+      }
     });
+
+    this.app = express();
+    this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(bodyParser.json());
+    this.app.use(logger);
+    this.app.use(routes);
+
+    this.server = http.createServer(this.app);
+
+    return this;
   };
 
   this.start = async function() {
-    return new Promise((resolve, reject) => {
-      // The check-connectivity module, does not provide any means to
-      // await the final result of starting up the embedded server.
-      // Therefore, we can't know if the embedded server has started
-      // up correctly. So as a temporary workaround, we will simply
-      // assume that the embedded server has booted up within 1 second.
-      return new Promise(resolve => {
-        this.cc.listen();
+    await this.cc.startup();
+    await redis.init();
 
-        setTimeout(() => {
-          return resolve(this);
-        }, 1000);
-      })
-        .then(() => {
-          return redis.init();
-        })
-        .then(() => {
-          return new Promise((resolve, reject) => {
-            this.server.listen(config.port, () => {
-              console.log(
-                `AF Connect Outbox server running on port ${config.port}`
-              );
-              return resolve(this);
-            });
-          });
-        })
-        .then(() => {
-          return resolve(this);
-        });
+    await new Promise((resolve, reject) => {
+      this.server.listen(config.port, () => {
+        console.log(`AF Connect Outbox server running on port ${config.port}`);
+        return resolve(this);
+      });
     });
+
+    return this;
   };
 
-  this.stop = function() {
-    return new Promise((resolve, reject) => {
-      if (this.server === undefined) {
+  this.stop = async function() {
+    if (this.server === undefined) {
+      return this;
+    }
+
+    await this.cc.shutdown();
+    await redis.quit();
+
+    await new Promise((resolve, reject) => {
+      this.server.close(() => {
+        console.log("AF Connect Outbox server terminated successfully");
         return resolve();
-      }
-
-      // The check-connectivity module, does not provide any means to
-      // await the final result of starting up the embedded server.
-      // Therefore, we can't know if the embedded server has started
-      // up correctly. So as a temporary workaround, we will simply
-      // assume that the embedded server has booted up within 1 second.
-      return new Promise(resolve => {
-        this.cc.shutdown();
-
-        setTimeout(() => {
-          return resolve(this);
-        }, 1000);
-      })
-        .then(() => {
-          return redis.quit();
-        })
-        .then(() => {
-          this.server.close(() => {
-            console.log("AF Connect Outbox server terminated successfully");
-            return resolve(this);
-          });
-        });
+      });
     });
+
+    return this;
   };
 };

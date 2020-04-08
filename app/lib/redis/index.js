@@ -1,13 +1,13 @@
 const redis = require("redis");
 const config = require("../config");
 
-module.exports = function(opts) {
-  this.redisClient = undefined;
+let redisClient = undefined;
 
+module.exports = {
   // create and connect redis client to local instance.
-  this.init = function() {
+  init: function() {
     return new Promise((resolve, reject) => {
-      const redisClient = redis.createClient({
+      redisClient = redis.createClient({
         host: config.redis_host,
         port: 6379
       });
@@ -23,44 +23,46 @@ module.exports = function(opts) {
         return reject();
       });
     });
-  };
+  },
+
+  // Quit the redis connection
+  quit: function() {
+    return new Promise((resolve, reject) => {
+      redisClient.quit((err, reply) => {
+        console.log("Redis client quitted");
+        return resolve();
+      });
+    });
+  },
 
   // setting value with key in redis with a configured timeout
-  this.setValue = function(key, value = "") {
+  setValue: function(key, value = "") {
     return new Promise((resolve, reject) =>
-      this.redisClient.set(
-        key,
-        value,
-        "EX",
-        config.redisTimeout,
-        (err, reply) => (err ? reject(err) : resolve(reply))
+      redisClient.set(key, value, "EX", config.redisTimeout, (err, reply) =>
+        err ? reject(err) : resolve(reply)
       )
     );
-  };
+  },
 
   // getting value by using the key
-  this.getValue = function(key) {
+  getValue: function(key) {
     return new Promise((resolve, reject) =>
-      this.redisClient.get(key, (err, reply) =>
-        err ? reject(err) : resolve(reply)
-      )
+      redisClient.get(key, (err, reply) => (err ? reject(err) : resolve(reply)))
     );
-  };
+  },
 
   // deleting value
-  this.deleteValue = function(key) {
+  deleteValue: function(key) {
     return new Promise((resolve, reject) =>
-      this.redisClient.del(key, (err, reply) =>
-        err ? reject(err) : resolve(reply)
-      )
+      redisClient.del(key, (err, reply) => (err ? reject(err) : resolve(reply)))
     );
-  };
+  },
 
-  this.checkKeyExist = function(key) {
+  checkKeyExist: function(key) {
     return new Promise((resolve, reject) =>
-      this.redisClient.exists(key, (err, reply) =>
+      redisClient.exists(key, (err, reply) =>
         err ? reject(err) : resolve(reply)
       )
     );
-  };
+  }
 };

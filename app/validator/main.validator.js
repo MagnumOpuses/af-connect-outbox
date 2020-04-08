@@ -1,4 +1,4 @@
-const { check, param, query, body } = require("express-validator/check");
+const { check, param, query, body } = require("express-validator");
 
 exports.storeValue = [
   check("token")

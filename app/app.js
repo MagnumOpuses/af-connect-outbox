@@ -28,7 +28,7 @@ module.exports = function() {
     this.app = express();
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(bodyParser.json());
-    this.app.use(logger);
+    this.app.use(logger.middleware);
     this.app.use(routes);
 
     this.server = http.createServer(this.app);

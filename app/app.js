@@ -10,11 +10,10 @@ const logger = require("./lib/logger");
 
 const CC = require("check-connectivity");
 
-module.exports = function() {
+exports.AfConnectOutbox = function() {
   this.app = undefined;
   this.server = undefined;
   this.cc = undefined;
-
   this.init = async function() {
     this.cc = new CC({
       host: config.host,
@@ -32,24 +31,17 @@ module.exports = function() {
     this.app.use(routes);
 
     this.server = http.createServer(this.app);
-
-    return this;
   };
-
   this.start = async function() {
     await this.cc.startup();
     await redis.init();
-
     await new Promise((resolve, reject) => {
       this.server.listen(config.port, () => {
         console.log(`AF Connect Outbox server running on port ${config.port}`);
         return resolve(this);
       });
     });
-
-    return this;
   };
-
   this.stop = async function() {
     if (this.server === undefined) {
       return this;
@@ -57,14 +49,11 @@ module.exports = function() {
 
     await this.cc.shutdown();
     await redis.quit();
-
     await new Promise((resolve, reject) => {
       this.server.close(() => {
         console.log("AF Connect Outbox server terminated successfully");
         return resolve();
       });
     });
-
-    return this;
   };
 };

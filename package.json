@@ -8,7 +8,7 @@
     "dev": "nodemon",
     "docker": "docker-compose stop && docker-compose build && docker-compose up",
     "test": "jest --runInBand --detectOpenHandles",
-    "coverage": "npx c8 --reporter=html npm test"
+    "coverage": "npx c8 --reporter=html --reporter=text npm test"
   },
   "repository": {
     "type": "git",

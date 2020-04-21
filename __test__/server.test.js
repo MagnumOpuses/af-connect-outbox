@@ -1,20 +1,7 @@
 const fetch = require("node-fetch");
 
 describe("Server", () => {
-  test("main server", async done => {
-    const { AfConnectOutbox } = require("../app/app");
-    const afConnectOutbox = new AfConnectOutbox();
-    await afConnectOutbox.init();
-    await afConnectOutbox.start();
-
-    const result = await fetch("http://localhost:8100");
-    expect(result.status).toBe(200);
-
-    await afConnectOutbox.stop();
-    return done();
-  });
-
-  test("main server graceful shutdown", async done => {
+  test("start up and graceful shutdown", async done => {
     const { AfConnectOutbox } = require("../app/app");
     const afConnectOutbox = new AfConnectOutbox();
     await afConnectOutbox.init();

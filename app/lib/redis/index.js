@@ -14,6 +14,7 @@ const init = () =>
       host: config.redis_host,
       port: 6379
     });
+    redisClient.auth(config.redis_password);
     redisClient.on("connect", res => {
       console.log(`Redis is successfully connected`);
       this.redisClient = redisClient;
